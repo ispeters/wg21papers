@@ -4,3 +4,6 @@
 [submodule "p3815"]
 	path = p3815
 	url = git@github.com:ispeters/async_scope.git
+[submodule "mpark.wg21"]
+	path = mpark.wg21
+	url = https://github.com/mpark/wg21.git
