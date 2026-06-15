@@ -1,3 +1,6 @@
 [submodule "p3149"]
 	path = p3149
 	url = git@github.com:ispeters/async_scope.git
+[submodule "p3815"]
+	path = p3815
+	url = git@github.com:ispeters/async_scope.git
