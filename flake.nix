@@ -76,6 +76,11 @@
           # rather than symlinks so the interpreter always starts from its own
           # store path. mpark/wg21 gitignores both directories, and `make clean`
           # deletes them: re-run afterwards.
+          #
+          # With --if-needed it does nothing when the links already point at
+          # this shell's tools. That matters because mpark/wg21's bibliography
+          # (csl.json) depends on deps/python, so needlessly recreating the
+          # links would re-download the references on the next build.
           linkDeps = pkgs.writeShellApplication {
             name = "wg21-link-deps";
             runtimeInputs = [
@@ -84,6 +89,11 @@
               pkgs.gnused
             ];
             text = ''
+              if_needed=0
+              if [[ "''${1:-}" == --if-needed ]]; then
+                if_needed=1
+                shift
+              fi
               root="''${1:-$(git rev-parse --show-toplevel)/mpark.wg21}"
               deps="$root/deps"
               if [[ ! -f "$deps/install-pandoc.sh" ]]; then
@@ -95,11 +105,18 @@
                 echo "error: mpark/wg21 at $root expects pandoc '$ver'; this flake provides ${pandocVersion}" >&2
                 exit 1
               fi
+              want_pandoc="${pandoc}/bin/pandoc"
+              want_python="${python}/bin/python3"
+              if ((if_needed)) &&
+                [[ "$(readlink "$deps/pandoc/$ver/pandoc" || true)" == "$want_pandoc" ]] &&
+                grep -qsF "$want_python" "$deps/python/bin/python3"; then
+                exit 0
+              fi
               rm -rf "$deps/pandoc" "$deps/python"
               mkdir -p "$deps/pandoc/$ver" "$deps/python/bin"
-              ln -s ${pandoc}/bin/pandoc "$deps/pandoc/$ver/pandoc"
+              ln -s "$want_pandoc" "$deps/pandoc/$ver/pandoc"
               for name in python3 python; do
-                printf '#!/bin/sh\nexec %s "$@"\n' "${python}/bin/python3" > "$deps/python/bin/$name"
+                printf '#!/bin/sh\nexec %s "$@"\n' "$want_python" > "$deps/python/bin/$name"
                 chmod +x "$deps/python/bin/$name"
               done
               echo "wg21-link-deps: using Nix pandoc ${pandocVersion} and Python in $deps"
