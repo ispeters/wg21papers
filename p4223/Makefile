@@ -1,2 +1,1 @@
-include ../mpark.wg21/Makefile
-
+include ../wg21.mk
