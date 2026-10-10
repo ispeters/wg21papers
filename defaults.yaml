@@ -1,0 +1,4 @@
+# Pandoc defaults applied to every paper on top of mpark/wg21's own (see
+# wg21.mk). Lists such as css add to mpark/wg21's rather than replacing them.
+css:
+  - ${.}/code-blocks.css

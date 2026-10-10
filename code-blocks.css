@@ -1,0 +1,12 @@
+/* A code block with a caption attribute, e.g. ```{.cpp caption="foo.hpp"},
+   shows the caption as a title line above the code. mpark/wg21 renders code
+   blocks to HTML itself, so this is done in CSS rather than a filter. */
+div.sourceCode[data-caption]::before {
+  content: attr(data-caption);
+  display: block;
+  font-family: monospace;
+  font-size: 85%;
+  font-weight: bold;
+  padding: 0.2em 0.6em;
+  border-bottom: 1px solid #ccc;
+}

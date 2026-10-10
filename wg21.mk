@@ -19,6 +19,11 @@ ifneq ($(.SHELLSTATUS),0)
   $(error wg21-link-deps failed; see the message above)
 endif
 
+# Repository-wide pandoc defaults, e.g. styles for code-block captions. A paper
+# that needs its own defaults file must also include these settings, since
+# mpark/wg21 takes only one.
+DEFAULTS ?= $(WG21_ROOT)/defaults.yaml
+
 include $(WG21_ROOT)/mpark.wg21/Makefile
 
 # `make check` compiles the paper's examples: code blocks whose attributes name
