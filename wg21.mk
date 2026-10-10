@@ -20,3 +20,16 @@ ifneq ($(.SHELLSTATUS),0)
 endif
 
 include $(WG21_ROOT)/mpark.wg21/Makefile
+
+# `make check` compiles the paper's examples: code blocks whose attributes name
+# a file, e.g. ```{.cpp file="example.cpp"}. See tools/check-examples.py.
+# Files the examples need but the paper shouldn't show go in the paper's
+# examples/ directory. A paper's Makefile sets EXAMPLES_CXXFLAGS, before
+# including this file, to whatever its examples need.
+EXAMPLES_CXX ?= clang++
+
+.PHONY: check
+check:
+	python3 $(WG21_ROOT)/tools/check-examples.py $(notdir $(CURDIR)).md \
+	  --out $(OUTDIR)/examples --support examples --cxx $(EXAMPLES_CXX) \
+	  -- $(EXAMPLES_CXXFLAGS)

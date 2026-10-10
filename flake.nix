@@ -3,8 +3,16 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
+  # The reference implementation P4223's examples are compiled against (see
+  # `make check`). Pinned to a commit so the check doesn't change under the
+  # paper; it's a plain source tree, used only for its headers.
+  inputs.stdexec = {
+    url = "github:ispeters/stdexec/9a85c0ac643fb7e52bbaf5d4e4788192f0e81bce";
+    flake = false;
+  };
+
   outputs =
-    { nixpkgs, ... }:
+    { nixpkgs, stdexec, ... }:
     let
       inherit (nixpkgs) lib;
 
@@ -130,7 +138,10 @@
               python
               linkDeps
               pkgs.gnumake
+              # For `make check`, which compiles papers' examples.
+              pkgs.clang
             ];
+            STDEXEC_INCLUDE = "${stdexec}/include";
           };
         }
       );

@@ -18,7 +18,25 @@
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "stdexec": "stdexec"
+      }
+    },
+    "stdexec": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791605951,
+        "narHash": "sha256-ckqE8X98PMtCeirN3UaTv+Zyy19H3yOHvU/YIsyPQgI=",
+        "owner": "ispeters",
+        "repo": "stdexec",
+        "rev": "9a85c0ac643fb7e52bbaf5d4e4788192f0e81bce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ispeters",
+        "repo": "stdexec",
+        "rev": "9a85c0ac643fb7e52bbaf5d4e4788192f0e81bce",
+        "type": "github"
       }
     }
   },
