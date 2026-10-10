@@ -13,11 +13,14 @@ can be split across the prose that explains it. Every block is preceded by a
 #line directive, so compiler diagnostics point into the paper.
 
 Files that the paper shouldn't show (scaffolding headers, stand-ins for real
-I/O) live in a support directory that is copied into the output
-directory first; an extracted file with the same name replaces it.
+I/O) live in a support directory that is copied into the output directory
+first; an extracted file with the same name replaces it. A support .cpp file
+that just includes an extracted header is how a header that no example includes
+gets checked.
 
-Every extracted .cpp file is then compiled, but not linked. The exit status is
-non-zero if any of them fails to compile.
+Every .cpp file in the output directory, extracted or supporting, is then
+compiled, but not linked. The exit status is non-zero if any of them fails to
+compile.
 """
 
 import argparse
@@ -74,7 +77,8 @@ def main():
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text)
 
-    sources = sorted(name for name in files if name.endswith('.cpp'))
+    sources = sorted(str(path.relative_to(args.out))
+                     for path in args.out.rglob('*.cpp'))
     failed = [source for source in sources if subprocess.run(
         [args.cxx, *args.cxxflags, '-I', str(args.out), '-c',
          str(args.out / source), '-o', str(args.out / f'{source}.o')]
