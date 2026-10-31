@@ -7,7 +7,7 @@
   # `make check`). Pinned to a commit so the check doesn't change under the
   # paper; it's a plain source tree, used only for its headers.
   inputs.stdexec = {
-    url = "github:NVIDIA/stdexec/dfc8c95718e8c66ff5496bc3b185a9162c93821e";
+    url = "github:NVIDIA/stdexec/362cdc77738e958f1d12fddfb55229a98df29d8a";
     flake = false;
   };
 

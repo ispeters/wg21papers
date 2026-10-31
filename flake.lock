@@ -25,17 +25,17 @@
     "stdexec": {
       "flake": false,
       "locked": {
-        "lastModified": 1792286779,
-        "narHash": "sha256-pZXSI5lT4C7520dzgrRDsc5oxiSJaypk8N2B4CWpPjE=",
+        "lastModified": 1793408240,
+        "narHash": "sha256-e/BoIM+GoVGMugrgMa+Krt3p6bGUHY74YHTu7Qw4DY8=",
         "owner": "NVIDIA",
         "repo": "stdexec",
-        "rev": "dfc8c95718e8c66ff5496bc3b185a9162c93821e",
+        "rev": "362cdc77738e958f1d12fddfb55229a98df29d8a",
         "type": "github"
       },
       "original": {
         "owner": "NVIDIA",
         "repo": "stdexec",
-        "rev": "dfc8c95718e8c66ff5496bc3b185a9162c93821e",
+        "rev": "362cdc77738e958f1d12fddfb55229a98df29d8a",
         "type": "github"
       }
     }
