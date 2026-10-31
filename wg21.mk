@@ -2,7 +2,7 @@
 #
 #     include ../wg21.mk
 #
-# Before including mpark/wg21's Makefile, link the dev shell's Nix-provided
+# Before including mpark/wg21's flat.mk, link the dev shell's Nix-provided
 # pandoc and Python into mpark/wg21's deps/ directory (a no-op when the links
 # are already current). Without the links, mpark/wg21 runs its own installers,
 # which don't work inside the shell; doing it here means `make clean` (which
@@ -24,7 +24,7 @@ endif
 # mpark/wg21 takes only one.
 DEFAULTS ?= $(WG21_ROOT)/defaults.yaml
 
-include $(WG21_ROOT)/mpark.wg21/Makefile
+include $(WG21_ROOT)/mpark.wg21/flat.mk
 
 # `make check` compiles the paper's examples: code blocks whose attributes name
 # a file, e.g. ```{.cpp file="example.cpp"}. See tools/check-examples.py.

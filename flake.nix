@@ -65,18 +65,19 @@
           };
 
           # Mirrors mpark/wg21's deps/requirements.txt (which pins panflute
-          # 2.3.1, matching nixpkgs).
+          # 2.3.1, matching nixpkgs). livereload is for `make serve`.
           python = pkgs.python3.withPackages (
             ps: with ps; [
               panflute
               beautifulsoup4
+              livereload
               lxml
               requests
               pyyaml
             ]
           );
 
-          # mpark/wg21's Makefile `override`s PANDOC_DIR and PYTHON_DIR (so they
+          # mpark/wg21's base.mk `override`s PANDOC_DIR and PYTHON_DIR (so they
           # can't be set on the command line) and lists them as prerequisites,
           # installing pandoc and a pip venv into its deps/ directory when they
           # are missing. Populate those directories with this shell's tools
